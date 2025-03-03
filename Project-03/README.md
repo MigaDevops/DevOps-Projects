@@ -121,14 +121,16 @@ By the end of this project, you will:
 
 ### **Step 3: Bring Up the Cluster**
 - **Start the Cluster:**
-   ```bash
-   vagrant up
-   ```
+
+```bash
+vagrant up
+```
 
 2. **Verify all VMs Are Running**:
-   ```bash
-   vagrant status
-   ```
+   
+```bash
+vagrant status
+```
    You should see `load_balancer`, `app1`, `app2`, and `db` in the `running` state.
 
 You can also view the status from the virtual box interface:
@@ -140,22 +142,25 @@ You can also view the status from the virtual box interface:
 ### **Step 4: Configure the Cluster Components**
 #### **1. Load Balancer Configuration**
 - SSH into the load balancer VM:
-  ```bash
-  vagrant ssh load_balancer
-  ```
+  
+```bash
+vagrant ssh load_balancer
+```
 - Install Nginx:
-  ```bash
-  sudo apt update
-  sudo apt install -y nginx
-  ```
+
+```bash
+sudo apt update
+sudo apt install -y nginx
+```
 - Configure Nginx as a load balancer:
 
-      ```bash
-      sudo vi /etc/nginx/sites-available/default
-      ```
+```bash
+sudo vi /etc/nginx/sites-available/default
+```
 - Replace the content with:
       
-      ```nginx
+      
+```nginx
       upstream app_cluster {
           server 192.168.56.101;
           server 192.168.56.102;
@@ -167,82 +172,107 @@ You can also view the status from the virtual box interface:
               proxy_pass http://app_cluster;
           }
       }
-      ```
+```
 - Restart Nginx:
       
-      ```bash
-      sudo systemctl restart nginx
-      ```
+```bash
+sudo systemctl restart nginx
+```
 
 #### **2. Application Servers Configuration**
 
 Repeat these steps for both `app1` and `app2`:
 
+for app1 
+
 - SSH into the app server:
       
-      ```bash
-      vagrant ssh app1  # or vagrant ssh app2
-      ```
+```bash
+vagrant ssh app1
+```
 - Install a web server:
       
-      ```bash
-      sudo apt update
-      sudo apt install -y apache2
-      ```
+```bash
+sudo apt update
+sudo apt install -y apache2
+```
 
 - Create a simple HTML page to differentiate servers:
       
-      ```bash
-      echo "Welcome to App Server 1" | sudo tee /var/www/html/index.html
-      ```
-**Note: (For app2, modify the message to "Welcome to App Server 2".)**
-    
+```bash
+echo "Welcome to App Server 1" | sudo tee /var/www/html/index.html
+```
 - Restart Apache:
       
-      ```bash
-      sudo systemctl restart apache2
-      ```
+```bash
+sudo systemctl restart apache2
+```
+
+for app2
+
+- SSH into the app server:
+      
+```bash
+vagrant ssh app2
+```
+- Install a web server:
+      
+```bash
+sudo apt update
+sudo apt install -y apache2
+```
+
+- Create a simple HTML page to differentiate servers:
+      
+```bash
+echo "Welcome to App Server 2" | sudo tee /var/www/html/index.html
+```
+- Restart Apache:
+      
+```bash
+sudo systemctl restart apache2
+```
 
 #### **3. Database Server Configuration**
 
 - SSH into the database server:
   
-  ```bash
-  vagrant ssh db
-  ```
+```bash
+vagrant ssh db
+```
 - Install MySQL:
   
-  ```bash
-  sudo apt update
-  sudo apt install -y mysql-server
-  ```
+```bash
+sudo apt update
+sudo apt install -y mysql-server
+```
 Allow connections from app servers:
     
 - Edit the MySQL configuration file:
       
-      ```bash
-      sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
-      ```
+```bash
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+```
 
 - Bind MySQL to all interfaces:
       
-      ```bash
-      bind-address = 0.0.0.0
-      ```
+```bash
+bind-address = 0.0.0.0
+```
 - Restart MySQL:
       
-      ```bash
-      sudo systemctl restart mysql
-      ```
+```bash
+sudo systemctl restart mysql
+```
 - Create a database and user:
       
-      ```bash
-      sudo mysql -u root -e "
-      CREATE DATABASE clusterdb;
-      CREATE USER 'clusteruser'@'%' IDENTIFIED BY 'password';
-      GRANT ALL PRIVILEGES ON clusterdb.* TO 'clusteruser'@'%';
-      FLUSH PRIVILEGES;"
-      ```
+```bash
+sudo mysql -u root -e "
+CREATE DATABASE clusterdb;
+CREATE USER 'clusteruser'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON clusterdb.* TO 'clusteruser'@'%';
+FLUSH PRIVILEGES;"
+```
 
 ---
 
@@ -252,9 +282,9 @@ Allow connections from app servers:
     
 - Access the load balancer from your host machine’s browser:
      
-      ```
-      http://192.168.56.100
-      ```
+```
+http://192.168.56.100
+```
 **Refresh the page to see traffic alternating between app servers.**
 
 LOADBALANCER
@@ -275,21 +305,21 @@ APP2
     
 - SSH into an app server (e.g., `app1`):
       
-      ```bash
-      vagrant ssh app1
-      ```
+```bash
+vagrant ssh app1
+```
 
 - Install MySQL client:
       
-      ```bash
-      sudo apt install -y mysql-client
-      ```
+```bash
+sudo apt install -y mysql-client
+```
 
 - Connect to the database server:
       
-      ```bash
-      mysql -h 192.168.56.110 -u clusteruser -p
-      ```
+```bash
+mysql -h 192.168.56.110 -u clusteruser -p
+```
       (Use `password` as the password.)
 
 ---
@@ -302,9 +332,9 @@ APP2
 
 - Re-provision:
       
-      ```bash
-      vagrant reload --provision
-      ```
+```bash
+vagrant reload --provision
+```
 
 ---
 
@@ -316,9 +346,9 @@ This project so far reflects the core principles of modern infrastructure: itera
 
 - To free up resources, destroy all VMs:
 
-      ```bash
-      vagrant destroy -f
-      ```
+```bash
+vagrant destroy -f
+```
 
 
 **Project Completed! 🚀**
