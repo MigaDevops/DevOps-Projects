@@ -9,3 +9,5 @@
 ### Project 3: Simulated Cluster Environment with Roles Using Vagrant and VirtualBox
 
 ### Project 4: How To Install Linux, Apache, MySQL, PHP (LAMP) Stack on Ubuntu 22.04
+
+### Project 5: How To Install Linux, NginX, MySQL, PHP (LEMP) Stack on Ubuntu 22.04
