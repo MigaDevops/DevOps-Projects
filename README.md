@@ -11,3 +11,5 @@
 ### Project 4: How To Install Linux, Apache, MySQL, PHP (LAMP) Stack on Ubuntu 22.04
 
 ### Project 5: How To Install Linux, NginX, MySQL, PHP (LEMP) Stack on Ubuntu 22.04
+
+### Project 6: Automated Backup System Using Rsync
