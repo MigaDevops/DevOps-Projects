@@ -13,3 +13,5 @@
 ### Project 5: How To Install Linux, NginX, MySQL, PHP (LEMP) Stack on Ubuntu 22.04
 
 ### Project 6: Automated Backup System Using Rsync
+
+### Project 7: Basic Linux Security Setup (Firewalls, UFW, and Fail2Ban)
