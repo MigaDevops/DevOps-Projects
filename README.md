@@ -15,3 +15,5 @@
 ### Project 6: Automated Backup System Using Rsync
 
 ### Project 7: Basic Linux Security Setup (Firewalls, UFW, and Fail2Ban)
+
+### Project 8: Simple Network Scanner Web App (nmap)
